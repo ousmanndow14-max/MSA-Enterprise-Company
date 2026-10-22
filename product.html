@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#123d31"><meta name="description" content="Browse MSA Enterprise building and plumbing materials."><title>Shop materials | MSA Enterprise Company</title><link rel="stylesheet" href="style.css"><script src="shop.js" defer></script></head>
+<body>
+  <div class="topbar"><div class="wrap"><span>Building and plumbing materials for your next project</span><span class="hours">Call us: <a href="tel:+2203131290 or 3118887">+220 3131290 / 3118887</a></span></div></div>
+  <header><div class="wrap nav"><a class="brand" href="index.html"><img class="logo" src="msa-logo.jpeg" alt="MSA Enterprise Company logo"><span class="brand-name">MSA Enterprise<small>Company</small></span></a><nav class="navlinks" aria-label="Main navigation"><a href="index.html#products">Departments</a><a href="index.html#about">About us</a><a href="index.html#contact">Contact</a></nav><button class="btn cart-button" type="button" id="open-cart" aria-controls="enquiry-drawer">Enquiry list <span class="cart-count" id="cart-count">0</span></button></div></header>
+  <main class="shop-page"><div class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span> / </span><a href="index.html#products">Departments</a><span> / </span><span id="breadcrumb-current">Shop</span></nav>
+    <section class="shop-intro"><span class="eyebrow"><i class="dot"></i> MSA Enterprise shop</span><h1 id="department-title">Browse materials</h1></section>
+    <label class="shop-search-label">Search materials<input id="product-search" type="search" placeholder="Search pipes, fittings, cement…" autocomplete="off"></label>
+    <nav id="category-navigation" class="category-navigation" aria-label="Product categories">
+      <a class="category-pill" href="product.html?department=plumbing&amp;category=PEX%20fittings">PEX fittings</a>
+      <a class="category-pill" href="product.html?department=plumbing&amp;category=Push%20fit%20fittings">Push fit fittings</a>
+      <a class="category-pill" href="product.html?department=plumbing&amp;category=PVC%20fittings">PVC fittings</a>
+      <a class="category-pill" href="product.html?department=plumbing&amp;category=Galva%20fittings">Galva fittings</a>
+      <a class="category-pill" href="product.html?department=plumbing&amp;category=Other%20fittings">Other fittings</a>
+    </nav>
+    <div class="catalogue-heading"><div><span class="eyebrow"><i class="dot"></i> Product catalogue</span><h2 id="category-title">Popular items</h2></div></div>
+    <div id="product-grid" class="product-grid" role="table" aria-label="Materials, quantities and prices" aria-live="polite"></div><p id="empty-state" class="empty-state" hidden>No items match that search. Try another word or ask us about the product.</p>
+    <div class="shop-note"><strong>Need a size or item that is not listed?</strong><span>Send us an enquiry and include the product name, size and quantity you need. We’ll confirm availability and current prices.</span></div>
+  </div></main>
+  <footer><div class="wrap foot"><span><strong>MSA Enterprise Company</strong> · Building and plumbing materials</span><span>Safeedin, Serrekunda · <a href="mailto:msaenterprise25@gmail.com">Get in touch</a></span></div></footer>
+  <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+  <aside class="enquiry-drawer" id="enquiry-drawer" aria-label="Enquiry invoice" aria-hidden="true">
+    <div class="drawer-head">
+      <div><span class="eyebrow"><i class="dot"></i> Your selection</span><h2>Enquiry invoice</h2></div>
+      <div class="drawer-actions">
+        <button class="reset-cart" type="button" id="reset-cart" aria-label="Clear enquiry list">Reset</button>
+        <button class="close-drawer" type="button" id="close-cart" aria-label="Close enquiry list">×</button>
+      </div>
+    </div>
+    <p class="drawer-help">Adjust quantities below. Prices and totals update automatically.</p>
+    <p id="cart-empty" class="cart-empty">Your list is empty. Add products from the catalogue to get started.</p>
+    <section class="invoice-sheet" aria-label="Invoice preview">
+      <header class="invoice-company">
+        <img src="msa-logo.jpeg" alt="MSA Enterprise Company logo">
+        <div><h2>MSA ENTERPRISE</h2><p>Safeedin, Serrekunda. The Gambia</p><p>Tel: +220 2311749 / 3131290 / 3118887</p><p>Email: mamsainaboujallow@gmail.com</p></div>
+      </header>
+      <div class="invoice-title-row"><h3>INVOICE</h3></div>
+      <div class="invoice-meta"><label>To: <input name="name" form="shop-enquiry-form" autocomplete="name" required maxlength="100" placeholder="Customer name"></label><span>Date: <strong id="invoice-date"></strong></span></div>
+      <table class="invoice-table">
+        <thead><tr><th>QTY</th><th>DESCRIPTION</th><th>U. PRICE</th><th>AMOUNT</th></tr></thead>
+        <tbody id="cart-items"></tbody>
+        <tfoot><tr><td colspan="3">Total D</td><td id="invoice-total">D0</td></tr></tfoot>
+      </table>
+      <p class="invoice-price-note" id="invoice-price-note">Items marked “To confirm” are excluded from the total.</p>
+      <div class="invoice-words">Amount in words: <strong id="invoice-amount-words">Zero dalasi</strong></div>
+      <div class="invoice-contact-row"><label>Customer contact <input name="contact" form="shop-enquiry-form" required maxlength="160" placeholder="Phone or email"></label></div>
+      <label class="invoice-message">Additional details<textarea name="message" form="shop-enquiry-form" maxlength="2000" rows="2" placeholder="Delivery area or other details"></textarea></label>
+      <div class="invoice-signatures"><span>Customer Sign: ____________________</span><span>Manager’s Sign: ____________________</span></div>
+    </section>
+    <form id="shop-enquiry-form" class="enquiry-form drawer-form"><button class="btn" type="submit">Done</button><p class="form-status" id="shop-form-status" role="status" aria-live="polite"></p></form>
+  </aside>
+</body></html>
+
