@@ -464,12 +464,12 @@ section {
   height:150px;
   background:var(--stage-image,linear-gradient(135deg,#738295,#46566a)) center/cover no-repeat
 }
-.stage-cement { --stage-image:url("cement-stage.jpg") }
-.stage-blocks { --stage-image:url("blocks-stage.webp") }
-.stage-roofing { --stage-image:url("roofing-stage.jpg") }
-.stage-plumbing { --stage-image:url("plumbing-stage.jpg") }
-.stage-paint { --stage-image:url("paint-stage.jpg") }
-.stage-electrical { --stage-image:url("electrical-stage.jpg") }
+.stage-cement { --stage-image:url("images/cement-stage.jpg") }
+.stage-blocks { --stage-image:url("images/blocks-stage.webp") }
+.stage-roofing { --stage-image:url("images/roofing-stage.jpg") }
+.stage-plumbing { --stage-image:url("images/plumbing-stage.jpg") }
+.stage-paint { --stage-image:url("images/paint-stage.jpg") }
+.stage-electrical { --stage-image:url("images/electrical-stage.jpg") }
 .department-card .product-icon { display:none }
 .department-card h3 {
   color:#fff;
@@ -1120,7 +1120,7 @@ footer {
     gap:10px
   }
   .card {
-    padding:17px 14px
+    /* padding:17px 14px */
   }
   .product-icon {
     margin-bottom:18px
