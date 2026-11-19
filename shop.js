@@ -1133,7 +1133,7 @@ function announceCartAddition(item) {
   cartFeedbackTimer = window.setTimeout(() => {
     status.classList.remove("is-visible");
     badge.classList.remove("cart-count-pulse");
-  }, 2400);
+  }, 1000);
 }
 function getUnitPrice(item) {
   const selectedPrice = item.unitPrices?.[item.unit] ?? item.price ?? "";
