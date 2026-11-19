@@ -2,7 +2,6 @@
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#123d31"><meta name="description" content="Browse MSA Enterprise building and plumbing materials."><title>Shop materials | MSA Enterprise Company</title><link rel="stylesheet" href="style.css"><script src="shop.js" defer></script></head>
 <body>
-  
   <header class="site-header"><div class="wrap nav-shell"><div class="nav">
     <a class="brand" href="index.html" aria-label="MSA Enterprise home"><img class="logo" src="msa-logo.jpeg" alt="MSA Enterprise Company logo"><span class="brand-name">MSA Enterprise<small>Company</small></span></a>
     <nav class="navlinks" aria-label="Main navigation">
@@ -86,10 +85,25 @@
       megaFeature.setAttribute('aria-label', `Browse ${department[1]}`);
       megaFeature.style.setProperty('--mega-image', `url("${department[0]}")`);
     }
-    megaMenu.querySelectorAll('[data-department]').forEach((link) => {
+    let mobileDepartmentSelection = '';
+    const touchNavigation = window.matchMedia('(hover: none) and (pointer: coarse)');
+    megaMenu.querySelectorAll('.mega-column [data-department]').forEach((link) => {
       const activate = () => showDepartmentImage(link.dataset.department);
       link.addEventListener('mouseenter', activate);
       link.addEventListener('focus', activate);
+      link.addEventListener('click', (event) => {
+        if (!touchNavigation.matches) return;
+        const department = link.dataset.department;
+        if (mobileDepartmentSelection !== department) {
+          event.preventDefault();
+          mobileDepartmentSelection = department;
+          megaMenu.querySelectorAll('.mega-column [data-department]').forEach((item) => item.classList.remove('is-selected'));
+          link.classList.add('is-selected');
+          showDepartmentImage(department);
+        } else {
+          mobileDepartmentSelection = '';
+        }
+      });
     });
     function closeShopMenu() {
       shopNav.classList.remove('is-open');

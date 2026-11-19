@@ -1325,7 +1325,7 @@ function wrapCanvasText(context, text, maxWidth) {
   if (line) lines.push(line);
   return lines;
 }
-async function createInvoiceImage(name, contact, additionalDetails) {
+function createInvoiceImage(name, contact, additionalDetails) {
   const width = 1200;
   const margin = 72;
   const rowHeight = 82;
@@ -1335,6 +1335,7 @@ async function createInvoiceImage(name, contact, additionalDetails) {
   canvas.width = width;
   canvas.height = height;
   const context = canvas.getContext("2d");
+  if (!context) throw new Error("This browser could not create an invoice canvas.");
   context.fillStyle = "#fffefa";
   context.fillRect(0, 0, width, height);
   context.strokeStyle = "#424640";
@@ -1343,7 +1344,10 @@ async function createInvoiceImage(name, contact, additionalDetails) {
   const logo = document.querySelector(".invoice-company img");
   if (logo?.complete && logo.naturalWidth) {
     try {
-      context.drawImage(logo, margin, 42, 86, 72);
+      const logoUrl = new URL(logo.currentSrc || logo.src, location.href);
+      if (logoUrl.origin === location.origin) {
+        context.drawImage(logo, margin, 42, 86, 72);
+      }
     } catch {}
   }
   context.textAlign = "left";
@@ -1502,17 +1506,13 @@ async function createInvoiceImage(name, contact, additionalDetails) {
     width - margin,
     signatureY,
   );
-  const blob = await new Promise((resolve, reject) =>
-    canvas.toBlob(
-      (file) =>
-        file
-          ? resolve(file)
-          : reject(new Error("Could not create invoice image.")),
-      "image/png",
-    ),
-  );
-  const date = $("invoice-date").textContent.replaceAll("/", "-");
-  return new File([blob], `MSA-Invoice-${date}.png`, { type: "image/png" });
+  const dataUrl = canvas.toDataURL("image/png");
+  const base64 = dataUrl.split(",")[1];
+  if (!base64) throw new Error("The browser returned an empty invoice image.");
+  const bytes = Uint8Array.from(atob(base64), (character) => character.charCodeAt(0));
+  const blob = new Blob([bytes], { type: "image/png" });
+  const date = $("invoice-date").textContent.split("/").join("-");
+  return { blob, filename: `MSA-Invoice-${date}.png` };
 }
 let invoiceReadyToFinish = false;
 const invoiceSubmitButton = $("shop-enquiry-form").querySelector(
@@ -1546,16 +1546,17 @@ $("shop-enquiry-form").addEventListener("submit", async (event) => {
   }
   const additionalDetails = String(data.get("message")).trim() || "None";
   try {
-    const invoiceFile = await createInvoiceImage(
+    const invoiceImage = createInvoiceImage(
       name,
       contact,
       additionalDetails,
     );
-    const objectUrl = URL.createObjectURL(invoiceFile);
+    const objectUrl = URL.createObjectURL(invoiceImage.blob);
     const downloadLink = document.createElement("a");
     downloadLink.href = objectUrl;
-    downloadLink.download = invoiceFile.name;
-    downloadLink.style.display = "none";
+    downloadLink.download = invoiceImage.filename;
+    downloadLink.style.position = "fixed";
+    downloadLink.style.left = "-9999px";
     document.body.append(downloadLink);
     downloadLink.click();
     downloadLink.remove();
@@ -1573,8 +1574,9 @@ $("shop-enquiry-form").addEventListener("submit", async (event) => {
       invoiceSubmitButton.disabled = false;
     }, 1800);
   } catch (error) {
+    console.error("Invoice image download failed:", error);
     $("shop-form-status").textContent =
-      "Could not prepare the invoice image. Please try again.";
+      "Could not create the invoice image. Your enquiry list is still saved; please try again.";
   }
 });
 setInvoiceDate();
