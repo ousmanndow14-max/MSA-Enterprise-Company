@@ -9,12 +9,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="topbar"><div class="wrap"><span>Building and plumbing materials for your next project</span><span class="hours">Call us: <a href="tel:+2203131290 +2203118887">+220 3131290 / 3118887</a></span></div></div>
-  <header><div class="wrap nav">
+ 
+  <header class="site-header"><div class="wrap nav-shell"><div class="nav">
     <a class="brand" href="index.html" aria-label="MSA Enterprise home"><img class="logo" src="msa-logo.jpeg" alt="MSA Enterprise Company logo"><span class="brand-name">MSA Enterprise<small>Company</small></span></a>
-    <nav class="navlinks" aria-label="Main navigation"><a href="#products">Shop</a><a href="#about">About us</a><a href="#contact">Contact</a></nav>
-    <a class="btn" href="#contact">Get in touch <span aria-hidden="true"></span></a>
-  </div></header>
+    <nav class="navlinks" aria-label="Main navigation">
+      <div class="nav-item nav-shop"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="shop-mega-menu">Shop <span class="chevron" aria-hidden="true">⌄</span></button>
+        <div class="mega-menu" id="shop-mega-menu" aria-label="Shop departments">
+          <div class="mega-column"><p class="mega-label">Build the structure</p><a data-department="cement" href="product.html?department=cement">Cement &amp; aggregates <span>01</span></a><a data-department="blocks" href="product.html?department=blocks">Blocks &amp; steel <span>02</span></a><a data-department="roofing" href="product.html?department=roofing">Roofing materials <span>03</span></a></div>
+          <div class="mega-column"><p class="mega-label">Fit out your project</p><a data-department="plumbing" href="product.html?department=plumbing">Plumbing materials <span>04</span></a><a data-department="paint" href="product.html?department=paint">Paint &amp; finishes <span>05</span></a><a data-department="electrical" href="product.html?department=electrical">Electrical materials <span>06</span></a></div>
+          <div class="mega-column"><p class="mega-label">Here to help</p><a data-department="other" href="product.html?department=other">Other materials <span>07</span></a><a href="#about">About MSA Enterprise</a><a href="#contact">Ask about availability</a><a class="mega-all" href="#products">Explore all departments <span aria-hidden="true">↗</span></a></div>
+          <a class="mega-feature" data-department="roofing" href="product.html?department=roofing" aria-label="Browse roofing materials"></a>
+        </div>
+      </div><a href="#home">Home</a><a href="#about">About us</a><a href="#contact">Contact</a>
+    </nav>
+    <a class="btn nav-cta" href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
+  </div></div></header>
   <main>
     <section class="hero" id="home"><div class="wrap hero-grid"><div>
       <span class="eyebrow"><i class="dot"></i> Trusted local supplier · Safeedin, Serrekunda</span>
@@ -22,7 +31,7 @@
       
       <div class="actions"><a class="btn" href="tel:+2202311749">☎ &nbsp; Call the shop</a><a class="btn outline" href="#products">Browse departments <span aria-hidden="true"></span></a></div>
       <div class="micro">Add products to an enquiry list and send it directly to our team.</div>
-    </div><div class="visual"><img class="hero-house-photo" src="hero-house.jpg" alt="Modern multi-storey home with a landscaped garden and illuminated exterior"></div></div></section>
+    </div><div class="visual"><img class="hero-house-photo" src="images/hero-house.jpg" alt="Modern multi-storey home with a landscaped garden and illuminated exterior"></div></div></section>
     <div class="trust"><div class="wrap trust-grid"><div class="trust-item"><span class="icon">⌖</span>Conveniently located in Safeedin</div><div class="trust-item"><span class="icon">▦</span>Building and plumbing materials</div><div class="trust-item"><span class="icon">☎</span>Speak with us directly by phone</div></div></div>
     <section class="products" id="products"><div class="wrap">
       <div class="section-head"><span class="eyebrow"><i class="dot"></i> Browse the shop</span><h2>Materials for every stage</h2><p>Choose a department to browse its product categories and add materials to your enquiry.</p></div>
@@ -38,9 +47,61 @@
       <p class="availability">Sample catalogue items are for browsing. <a href="#contact">Contact the shop</a> to confirm availability and prices.</p>
     </div></section>
     <section class="about" id="about"><div class="wrap about-grid"><div><span class="eyebrow"><i class="dot"></i> Your local materials shop</span><h2>Here to help you get building.</h2><p>MSA Enterprise Company serves builders, tradespeople and households in Safeedin, Serrekunda. Whether you're planning a renovation or starting from the ground up, talk to us about what you need.</p><a class="btn light" href="#contact">Talk to our team <span aria-hidden="true"></span></a></div><div class="about-list"><div class="about-row"><span class="check">✓</span><div><strong>Tell us about your project</strong><span>Share the materials or quantities you are looking for.</span></div></div><div class="about-row"><span class="check">✓</span><div><strong>Check availability</strong><span>Call ahead to ask what is currently in stock.</span></div></div><div class="about-row"><span class="check">✓</span><div><strong>Get in touch directly</strong><span>Reach the shop by phone or email for enquiries.</span></div></div></div></div></section>
-    <section class="contact" id="contact"><div class="wrap contact-grid"><div class="contact-copy"><span class="eyebrow"><i class="dot"></i> Contact MSA Enterprise</span><h2>Let’s talk materials.</h2><p>Call us to ask about products, availability and prices, or send an email with your enquiry.</p><div class="contact-list"><a class="contact-link" href="mailto:msaenterprise25@gmail.com"><span class="icon">✉</span><span><small>Email</small><strong>msaenterprise25@gmail.com</strong></span></a><div class="contact-link"><span class="icon">⌖</span><span><small>Visit</small><strong>Safeedin, Serrekunda</strong></span></div></div></div><div class="contact-card"><h3>Call the shop</h3><p>Choose a number below to call. We recommend checking availability before visiting.</p><div class="contact-phones"><a class="phone" href="tel:+2202311749">+220 231 1749 <span>Call</span></a><a class="phone" href="tel:+2203131290">+220 313 1290 <span>Call</span></a><a class="phone" href="tel:+2203118887">+220 311 8887 <span>Call</span></a></div><p class="fineprint">Location details: Safeedin, Serrekunda. Contact us for directions.</p></div></div></section>
+    <section class="contact" id="contact"><div class="wrap contact-grid"><div class="contact-copy"><span class="eyebrow"><i class="dot"></i> Contact MSA Enterprise</span><h2>Let’s talk materials.</h2><p>Call us to ask about products, availability and prices, or send an email with your enquiry.</p><div class="contact-list"><a class="contact-link" href="mailto:msaenterprise25@gmail.com"><span class="icon">✉</span><span><small>Email</small><strong>msaenterprise25@gmail.com</strong></span></a><div class="contact-link"><span class="icon">⌖</span><span><small>Visit</small><strong>Safeedin, Serrekunda</strong></span></div></div></div><div class="contact-card"><h3>Call the shop</h3><p>Choose a number below to call. We recommend checking availability before visiting.</p><div class="contact-phones"><a class="phone" href="tel:+220872311749">+220 87 231 1749 <span>Call</span></a><a class="phone" href="tel:+220833131290">+220 83 313 1290 <span>Call</span></a><a class="phone" href="tel:+220833118887">+220 83 311 8887 <span>Call</span></a></div><p class="fineprint">Location details: Safeedin, Serrekunda. Contact us for directions.</p></div></div></section>
   </main>
   <footer><div class="wrap foot"><span><strong>MSA Enterprise Company</strong> · Building and plumbing materials  <br>&copy; 2026 All rights reserved <br>Build by TN Solution</span><span>Safeedin, Serrekunda · <a href="mailto:msaenterprise25@gmail.com">Get in touch</a></span></div></footer>
+<script>
+  const shopNav = document.querySelector('.nav-shop');
+  const shopTrigger = document.querySelector('.nav-trigger');
+  const megaMenu = document.querySelector('.mega-menu');
+  const megaFeature = document.querySelector('.mega-feature');
+  const departments = {
+    cement: { image: 'images/cement-stage.jpg', title: 'Build on a solid foundation.', copy: 'Explore cement, sand and aggregates for your project.', link: 'Browse cement' },
+    blocks: { image: 'images/blocks-stage.webp', title: 'Build strong from the ground up.', copy: 'Find blocks, reinforcement and structural supplies.', link: 'Browse blocks & steel' },
+    roofing: { image: 'images/roofing-stage.jpg', title: 'A strong roof starts here.', copy: 'Explore sheets, timber and the finishing details.', link: 'Browse roofing' },
+    plumbing: { image: 'images/plumbing-stage.jpg', title: 'The right fit for every flow.', copy: 'Browse pipes, fittings and bathroom essentials.', link: 'Browse plumbing' },
+    paint: { image: 'images/paint-stage.jpg', title: 'Bring the finishing touch.', copy: 'Explore paints, primers and finishing supplies.', link: 'Browse paint' },
+    electrical: { image: 'images/electrical-stage.jpg', title: 'Power your next project.', copy: 'Browse cables, switches and electrical essentials.', link: 'Browse electrical' },
+    other: { image: 'images/hero-house.jpg', title: 'Tell us what your project needs.', copy: 'Ask our team about additional materials and supplies.', link: 'Browse other materials' }
+  };
+  function showDepartment(department) {
+    const item = departments[department];
+    if (!item) return;
+    megaFeature.dataset.department = department;
+    megaFeature.href = `product.html?department=${department}`;
+    megaFeature.setAttribute('aria-label', item.link);
+    megaFeature.style.setProperty('--mega-image', `url("${item.image}")`);
+  }
+  megaMenu.querySelectorAll('[data-department]').forEach((link) => {
+    const activate = () => showDepartment(link.dataset.department);
+    link.addEventListener('mouseenter', activate);
+    link.addEventListener('focus', activate);
+  });
+  function closeShopMenu() {
+    shopNav.classList.remove('is-open');
+    shopTrigger.setAttribute('aria-expanded', 'false');
+  }
+  shopTrigger.addEventListener('click', () => {
+    const open = shopTrigger.getAttribute('aria-expanded') !== 'true';
+    shopTrigger.setAttribute('aria-expanded', String(open));
+    shopNav.classList.toggle('is-open', open);
+  });
+  document.addEventListener('click', (event) => {
+    if (!shopNav.contains(event.target)) closeShopMenu();
+  });
+  window.addEventListener('scroll', closeShopMenu, { passive: true });
+  window.addEventListener('wheel', (event) => {
+    if (event.deltaY !== 0) closeShopMenu();
+  }, { passive: true });
+  window.addEventListener('touchmove', closeShopMenu, { passive: true });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeShopMenu();
+      shopTrigger.focus();
+    }
+  });
+</script>
+
 </body></html>
 
 

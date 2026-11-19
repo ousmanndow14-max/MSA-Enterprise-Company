@@ -38,26 +38,6 @@ button,input,textarea {
   width:min(1160px,calc(100% - 40px));
   margin-inline:auto
 }
-.topbar {
-  background:var(--green-deep);
-  color:#d9e4dc;
-  font-size:13px;
-  letter-spacing:.025em
-}
-.topbar .wrap {
-  min-height:39px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px
-}
-.topbar a {
-  color:var(--gold-light);
-  font-weight:700
-}
-.topbar .hours {
-  color:#c7d8ce
-}
 header {
   position:sticky;
   top:0;
@@ -1038,14 +1018,6 @@ footer {
   .wrap {
     width:min(100% - 30px,500px)
   }
-  .topbar .wrap {
-    min-height:36px;
-    justify-content:center;
-    text-align:center
-  }
-  .topbar .hours {
-    display:none
-  }
   .nav {
     height:70px
   }
@@ -1529,3 +1501,64 @@ footer {
 .invoice-remove-button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 @media(max-width:640px){.enquiry-drawer{padding:16px 12px}.invoice-sheet{padding:15px 10px}.invoice-company{gap:7px}.invoice-company img{width:48px;height:48px}.invoice-company h2{font-size:15px}.invoice-company p{font-size:9px}.invoice-title-row h3{font-size:21px}.invoice-meta{grid-template-columns:1fr .65fr;gap:5px;font-size:11px}.invoice-meta input,.invoice-contact-row input{font-size:11px}.invoice-table th,.invoice-table td{padding:6px 3px}.invoice-table th{font-size:8px}.invoice-table th:first-child{width:18%}.invoice-table th:nth-child(2){width:38%}.invoice-table th:nth-child(3){width:21%}.invoice-table th:nth-child(4){width:23%}.invoice-table td:nth-child(2) strong{font-size:10px}.invoice-table td:nth-child(3),.invoice-table td:nth-child(4){font-size:10px;overflow-wrap:anywhere}.invoice-qty-control{gap:2px}.invoice-qty-control button{width:19px;height:20px}.invoice-signatures{font-size:8px}}
 
+
+/* Floating glass navigation and full-width mega menu */
+.site-header{position:sticky;top:0;z-index:20;padding:12px 0 0;background:transparent;border:0;backdrop-filter:none;-webkit-backdrop-filter:none}
+.nav-shell{position:relative}
+.nav{height:74px;padding:8px 16px;border:1px solid rgba(255,255,255,.72);border-radius:22px;background:rgba(250,249,245,.76);box-shadow:0 12px 34px rgba(18,45,34,.10);backdrop-filter:blur(20px) saturate(145%);-webkit-backdrop-filter:blur(20px) saturate(145%)}
+.navlinks{height:100%;gap:27px}
+.navlinks>a,.nav-trigger{position:relative;display:inline-flex;align-items:center;min-height:42px;color:#45564e;font:inherit;transition:color .18s ease}
+.navlinks>a::after,.nav-trigger::after{position:absolute;right:0;bottom:2px;left:0;height:2px;border-radius:2px;background:var(--gold);content:"";transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+.navlinks>a:hover,.navlinks>a:focus-visible,.nav-trigger:hover,.nav-trigger:focus-visible,.nav-shop:focus-within .nav-trigger{color:var(--green-light)}
+.navlinks>a:hover::after,.navlinks>a:focus-visible::after,.nav-trigger:hover::after,.nav-trigger:focus-visible::after,.nav-shop:focus-within .nav-trigger::after{transform:scaleX(1)}
+.nav-trigger{gap:7px;padding:0;border:0;background:none;cursor:pointer}
+.chevron{font-size:17px;transition:transform .2s}
+.nav-shop:hover .chevron,.nav-shop:focus-within .chevron,.nav-shop.is-open .chevron{transform:rotate(180deg)}
+.nav-item{height:100%;display:flex;align-items:center}
+.mega-menu{position:absolute;top:calc(100% + 10px);left:0;width:100%;display:grid;grid-template-columns:1fr 1fr 1fr 1.12fr;gap:0;padding:22px;border:1px solid rgba(255,255,255,.82);border-radius:20px;background:rgba(250,249,245,.9);box-shadow:0 24px 60px rgba(14,39,30,.18);backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .18s,transform .18s,visibility .18s}
+.nav-shop.is-open .mega-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.mega-column{padding:5px 20px 5px 12px;border-right:1px solid rgba(18,61,49,.10)}
+.mega-label{margin:0 0 12px;color:#98753b;font-size:10px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+.mega-column>a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 8px;border-radius:7px;color:#34483d;font-size:13px;font-weight:700;line-height:1.35;transition:color .16s,background .16s,transform .16s}
+.mega-column>a:hover,.mega-column>a:focus-visible{background:rgba(29,90,69,.08);color:var(--green-light);transform:translateX(2px)}
+.mega-column>a span{color:#98a197;font-size:10px;font-weight:800}
+.mega-column>a.mega-all{justify-content:flex-start;gap:8px;margin-top:6px;color:var(--green-light)}
+.mega-feature{position:relative;display:block;min-height:190px;overflow:hidden;margin-left:20px;padding:0;border:1px solid rgba(255,255,255,.7);border-radius:14px;background:var(--mega-image,url("images/roofing-stage.jpg")) center/cover no-repeat;transition:filter .2s,transform .2s}
+.mega-feature:hover,.mega-feature:focus-visible{filter:saturate(1.08);transform:translateY(-2px)}
+.mega-feature:before{display:none}
+.feature-kicker{margin-bottom:auto;color:#f1d99d;font-size:9px;font-weight:850;letter-spacing:.14em}
+.feature-title{max-width:220px;font-family:Georgia,serif;font-size:22px;line-height:1.08}
+.feature-copy{max-width:230px;margin-top:6px;color:rgba(255,255,255,.78);font-size:11px;line-height:1.5}
+.feature-link{margin-top:12px;color:#f1d99d;font-size:11px;font-weight:800}
+.nav-cta{padding:12px 17px;border-radius:12px}
+@media(max-width:850px){.nav{gap:16px}.navlinks{gap:15px}.mega-menu{grid-template-columns:1fr 1fr;row-gap:14px}.mega-column:nth-child(2){border-right:0}.mega-feature{min-height:160px;margin-left:0}}
+@media(max-width:640px){.site-header{padding-top:8px}.nav{height:64px;padding:7px 9px;border-radius:18px;gap:8px}.navlinks{display:flex;gap:10px}.navlinks>a{display:none}.nav-cta{padding:10px 11px;font-size:11px}.nav-trigger{padding:0 7px;font-size:12px}.brand{gap:7px}.brand-name{font-size:12px}.brand-name small{font-size:8px;letter-spacing:1.4px}.logo{width:39px;height:39px}.mega-menu{position:fixed;top:80px;left:15px;width:calc(100vw - 30px);max-height:calc(100dvh - 100px);overflow:auto;grid-template-columns:1fr 1fr;padding:14px;border-radius:16px}.mega-column{padding:4px 10px;border-right:1px solid rgba(18,61,49,.10)}.mega-column:nth-child(2){border-right:0}.mega-column:nth-child(3){border-right:0}.mega-feature{grid-column:1/-1;min-height:135px;margin-left:0;padding:0}.feature-title{font-size:19px}}
+@media(prefers-reduced-motion:reduce){.mega-menu,.chevron,.mega-column>a,.mega-feature,.navlinks>a,.nav-trigger,.navlinks>a::after,.nav-trigger::after{transition:none}}
+
+/* Animated enquiry badge and brief add confirmation */
+.cart-count-pulse{position:relative;animation:cartBadgePulse .48s cubic-bezier(.2,.85,.3,1.3)}
+.cart-count-pulse::after{position:absolute;inset:-5px;content:"";border:2px solid var(--gold);border-radius:inherit;animation:cartBadgeRipple .65s ease-out forwards}
+.cart-feedback{position:fixed;z-index:30;left:50%;bottom:24px;width:max-content;max-width:min(520px,calc(100vw - 32px));padding:13px 19px;border:1px solid rgba(255,255,255,.78);border-radius:13px;background:rgba(250,249,245,.94);box-shadow:0 12px 34px rgba(14,39,30,.2);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:var(--green-deep);font-size:13px;font-weight:750;line-height:1.45;text-align:center;opacity:0;pointer-events:none;transform:translate(-50%,12px);transition:opacity .2s ease,transform .2s ease}
+.cart-feedback.is-visible{opacity:1;transform:translate(-50%,0)}
+@keyframes cartBadgePulse{0%{transform:scale(1)}42%{transform:scale(1.3)}72%{transform:scale(.94)}100%{transform:scale(1)}}
+@keyframes cartBadgeRipple{0%{opacity:.72;transform:scale(.78)}100%{opacity:0;transform:scale(1.48)}}
+@media(max-width:640px){.cart-feedback{bottom:max(16px,env(safe-area-inset-bottom));padding:11px 14px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){.cart-count-pulse,.cart-count-pulse::after{animation:none}.cart-feedback{transition:none}}
+
+/* Mobile invoice fields: explicit keyboard dismissal and Gambian phone format */
+.invoice-field-group{display:flex;align-items:center;gap:8px;min-width:0;flex:1}
+.invoice-field-group>label{flex:none;font-weight:700;white-space:nowrap}
+.invoice-field-control{display:flex;align-items:center;gap:7px;flex:1;min-width:0}
+.invoice-field-control input{flex:1;width:100%;min-width:0;padding:7px 4px;border:0;border-bottom:1px dotted #636760;border-radius:0;background:transparent;color:#20231f;font-size:16px!important}
+.invoice-phone-group{flex-wrap:wrap}
+.invoice-phone-group .invoice-field-control{flex-basis:100%;margin-left:0}
+.invoice-phone-code{flex:none;color:#315c48;font-size:13px;font-weight:800}
+.invoice-phone-hint{flex-basis:100%;margin-left:0;color:#78847c;font-size:10px;font-weight:500}
+.invoice-input-done{flex:none;padding:6px 9px;border:1px solid #d8dfd5;border-radius:7px;background:#f4f5ef;color:#315c48;font-size:12px;font-weight:800;cursor:pointer}
+.invoice-input-done:hover{border-color:#b7c9b9;background:#eaf0e7}
+.invoice-input-done:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media(max-width:640px){.invoice-meta .invoice-field-group{gap:5px}.invoice-meta .invoice-field-group>label,.invoice-phone-group>label,.invoice-phone-code{font-size:12px}.invoice-meta .invoice-field-control{gap:4px}.invoice-field-control input{font-size:15px!important}.invoice-input-done{padding:7px 8px;font-size:12px}.invoice-phone-group .invoice-field-control{flex-basis:100%}}
+.back-button{display:inline-flex;align-items:center;gap:9px;margin:0 0 27px;padding:9px 15px;border:1px solid #4a7865;border-radius:999px;background:var(--green-light);color:#fffefa;font-size:13px;font-weight:750;cursor:pointer;box-shadow:0 5px 13px rgba(18,61,49,.12);transition:transform .18s,border-color .18s,background .18s,box-shadow .18s}
+.back-button span{font-size:18px;line-height:1;color:var(--gold-light)}
+.back-button:hover{transform:translateY(-1px);border-color:var(--green-deep);background:var(--green-deep);box-shadow:0 7px 16px rgba(13,43,35,.2)}
+.back-button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}

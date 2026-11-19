@@ -2,10 +2,23 @@
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#123d31"><meta name="description" content="Browse MSA Enterprise building and plumbing materials."><title>Shop materials | MSA Enterprise Company</title><link rel="stylesheet" href="style.css"><script src="shop.js" defer></script></head>
 <body>
-  <div class="topbar"><div class="wrap"><span>Building and plumbing materials for your next project</span><span class="hours">Call us: <a href="tel:+2203131290 or 3118887">+220 3131290 / 3118887</a></span></div></div>
-  <header><div class="wrap nav"><a class="brand" href="index.html"><img class="logo" src="msa-logo.jpeg" alt="MSA Enterprise Company logo"><span class="brand-name">MSA Enterprise<small>Company</small></span></a><nav class="navlinks" aria-label="Main navigation"><a href="index.html#products">Departments</a><a href="index.html#about">About us</a><a href="index.html#contact">Contact</a></nav><button class="btn cart-button" type="button" id="open-cart" aria-controls="enquiry-drawer">Enquiry list <span class="cart-count" id="cart-count">0</span></button></div></header>
+  
+  <header class="site-header"><div class="wrap nav-shell"><div class="nav">
+    <a class="brand" href="index.html" aria-label="MSA Enterprise home"><img class="logo" src="msa-logo.jpeg" alt="MSA Enterprise Company logo"><span class="brand-name">MSA Enterprise<small>Company</small></span></a>
+    <nav class="navlinks" aria-label="Main navigation">
+      <div class="nav-item nav-shop"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="shop-mega-menu">Shop <span class="chevron" aria-hidden="true">⌄</span></button>
+        <div class="mega-menu" id="shop-mega-menu" aria-label="Shop departments">
+          <div class="mega-column"><p class="mega-label">Build the structure</p><a data-department="cement" href="product.html?department=cement">Cement &amp; aggregates <span>01</span></a><a data-department="blocks" href="product.html?department=blocks">Blocks &amp; steel <span>02</span></a><a data-department="roofing" href="product.html?department=roofing">Roofing materials <span>03</span></a></div>
+          <div class="mega-column"><p class="mega-label">Fit out your project</p><a data-department="plumbing" href="product.html?department=plumbing">Plumbing materials <span>04</span></a><a data-department="paint" href="product.html?department=paint">Paint &amp; finishes <span>05</span></a><a data-department="electrical" href="product.html?department=electrical">Electrical materials <span>06</span></a></div>
+          <div class="mega-column"><p class="mega-label">Here to help</p><a data-department="other" href="product.html?department=other">Other materials <span>07</span></a><a href="index.html#about">About MSA Enterprise</a><a href="index.html#contact">Ask about availability</a><a class="mega-all" href="index.html#products">Explore all departments <span aria-hidden="true">↗</span></a></div>
+          <a class="mega-feature" data-department="roofing" href="product.html?department=roofing" aria-label="Browse roofing materials"></a>
+        </div>
+      </div><a href="index.html#home">Home</a><a href="index.html#about">About us</a><a href="index.html#contact">Contact</a>
+    </nav>
+    <button class="btn cart-button nav-cta" type="button" id="open-cart" aria-controls="enquiry-drawer">Enquiry list <span class="cart-count" id="cart-count">0</span></button>
+  </div></div></header>
   <main class="shop-page"><div class="wrap">
-    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span> / </span><a href="index.html#products">Departments</a><span> / </span><span id="breadcrumb-current">Shop</span></nav>
+    <button class="back-button" id="shop-back" type="button"><span aria-hidden="true">←</span> Back to shop</button>
     <section class="shop-intro"><span class="eyebrow"><i class="dot"></i> MSA Enterprise shop</span><h1 id="department-title">Browse materials</h1></section>
     <label class="shop-search-label">Search materials<input id="product-search" type="search" placeholder="Search pipes, fittings, cement…" autocomplete="off"></label>
     <nav id="category-navigation" class="category-navigation" aria-label="Product categories">
@@ -51,5 +64,61 @@
     </section>
     <form id="shop-enquiry-form" class="enquiry-form drawer-form"><button class="btn" type="submit">Done</button><p class="form-status" id="shop-form-status" role="status" aria-live="polite"></p></form>
   </aside>
+  <script>
+    const shopNav = document.querySelector('.nav-shop');
+    const shopTrigger = document.querySelector('.nav-trigger');
+    const megaMenu = document.querySelector('.mega-menu');
+    const megaFeature = document.querySelector('.mega-feature');
+    const departmentImages = {
+      cement: ['images/cement-stage.jpg', 'Cement and aggregates'],
+      blocks: ['images/blocks-stage.webp', 'Blocks and steel'],
+      roofing: ['images/roofing-stage.jpg', 'Roofing materials'],
+      plumbing: ['images/plumbing-stage.jpg', 'Plumbing materials'],
+      paint: ['images/paint-stage.jpg', 'Paint and finishes'],
+      electrical: ['images/electrical-stage.jpg', 'Electrical materials'],
+      other: ['images/hero-house.jpg', 'Other materials']
+    };
+    function showDepartmentImage(key) {
+      const department = departmentImages[key];
+      if (!department) return;
+      megaFeature.dataset.department = key;
+      megaFeature.href = `product.html?department=${key}`;
+      megaFeature.setAttribute('aria-label', `Browse ${department[1]}`);
+      megaFeature.style.setProperty('--mega-image', `url("${department[0]}")`);
+    }
+    megaMenu.querySelectorAll('[data-department]').forEach((link) => {
+      const activate = () => showDepartmentImage(link.dataset.department);
+      link.addEventListener('mouseenter', activate);
+      link.addEventListener('focus', activate);
+    });
+    function closeShopMenu() {
+      shopNav.classList.remove('is-open');
+      shopTrigger.setAttribute('aria-expanded', 'false');
+    }
+    shopTrigger.addEventListener('click', () => {
+      const open = shopTrigger.getAttribute('aria-expanded') !== 'true';
+      shopTrigger.setAttribute('aria-expanded', String(open));
+      shopNav.classList.toggle('is-open', open);
+    });
+    document.addEventListener('click', (event) => {
+      if (!shopNav.contains(event.target)) closeShopMenu();
+    });
+    window.addEventListener('scroll', closeShopMenu, { passive: true });
+    window.addEventListener('wheel', (event) => {
+      if (event.deltaY !== 0) closeShopMenu();
+    }, { passive: true });
+    window.addEventListener('touchmove', closeShopMenu, { passive: true });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeShopMenu();
+        shopTrigger.focus();
+      }
+    });
+    document.getElementById('shop-back').addEventListener('click', () => {
+      const cameFromThisSite = document.referrer && new URL(document.referrer).origin === location.origin;
+      if (cameFromThisSite && history.length > 1) history.back();
+      else location.href = 'index.html#products';
+    });
+  </script>
 </body></html>
 

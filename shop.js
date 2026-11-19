@@ -874,8 +874,74 @@ let selectedCategory = categoryNames.includes(requestedCategory)
 let cart = JSON.parse(localStorage.getItem("msa-enquiry-items") || "[]");
 const $ = (id) => document.getElementById(id);
 
+function addFieldDoneControl(inputName, labelText, fieldId, isPhone = false) {
+  const input = $("shop-enquiry-form").elements.namedItem(inputName);
+  const originalLabel = input?.closest("label");
+  if (!input || !originalLabel || $(fieldId)) return input;
+
+  const group = document.createElement("div");
+  group.className = `invoice-field-group${isPhone ? " invoice-phone-group" : ""}`;
+  const label = document.createElement("label");
+  label.htmlFor = fieldId;
+  label.textContent = labelText;
+  const controls = document.createElement("div");
+  controls.className = "invoice-field-control";
+  input.id = fieldId;
+  input.type = isPhone ? "tel" : "text";
+
+  if (isPhone) {
+    input.inputMode = "numeric";
+    input.autocomplete = "tel-national";
+    input.maxLength = 9;
+    input.required = false;
+    input.placeholder = "9-digit number";
+    input.setAttribute("aria-describedby", "invoice-phone-hint");
+    input.addEventListener("input", () => input.setCustomValidity(""));
+    const code = document.createElement("span");
+    code.className = "invoice-phone-code";
+    code.textContent = "+220";
+    controls.append(code);
+  } else {
+    input.autocomplete = "name";
+    input.placeholder = "Customer name";
+  }
+
+  const done = document.createElement("button");
+  done.type = "button";
+  done.className = "invoice-input-done";
+  done.textContent = "Done";
+  done.setAttribute("aria-label", `Done editing ${labelText.toLowerCase()}`);
+  done.addEventListener("click", () => input.blur());
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      input.blur();
+    }
+  });
+
+  controls.append(input, done);
+  group.append(label, controls);
+  originalLabel.replaceWith(group);
+  if (isPhone) {
+    const hint = document.createElement("small");
+    hint.id = "invoice-phone-hint";
+    hint.className = "invoice-phone-hint";
+    hint.textContent = "Enter 9 digits after +220.";
+    group.append(hint);
+  }
+  return input;
+}
+
+const invoiceNameInput = addFieldDoneControl("name", "To:", "invoice-name");
+const invoicePhoneInput = addFieldDoneControl(
+  "contact",
+  "Customer contact",
+  "invoice-phone",
+  true,
+);
+
 $("department-title").textContent = department.title;
-$("breadcrumb-current").textContent = department.title;
+if ($("breadcrumb-current")) $("breadcrumb-current").textContent = department.title;
 document.title = `${department.title} | MSA Enterprise Company`;
 
 function renderCategories() {
@@ -1036,6 +1102,38 @@ function addToCart(item) {
   if (found) found.quantity += item.quantity;
   else cart.push(item);
   saveCart();
+  announceCartAddition(item);
+}
+let cartFeedbackTimer;
+function announceCartAddition(item) {
+  const count = cart.reduce((sum, entry) => sum + entry.quantity, 0);
+  const badge = $("cart-count");
+  const button = $("open-cart");
+  badge.classList.remove("cart-count-pulse");
+  // Restart the CSS animation even when the same item is added repeatedly.
+  void badge.offsetWidth;
+  badge.classList.add("cart-count-pulse");
+  button.setAttribute("aria-label", `Enquiry list, ${count} ${count === 1 ? "item" : "items"}`);
+
+  let status = $("cart-feedback");
+  if (!status) {
+    status = document.createElement("div");
+    status.id = "cart-feedback";
+    status.className = "cart-feedback";
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    status.setAttribute("aria-atomic", "true");
+    document.body.append(status);
+  }
+  status.textContent = `Added ${item.name} · enquiry list now has ${count} ${count === 1 ? "item" : "items"}`;
+  status.classList.remove("is-visible");
+  void status.offsetWidth;
+  status.classList.add("is-visible");
+  window.clearTimeout(cartFeedbackTimer);
+  cartFeedbackTimer = window.setTimeout(() => {
+    status.classList.remove("is-visible");
+    badge.classList.remove("cart-count-pulse");
+  }, 2400);
 }
 function getUnitPrice(item) {
   const selectedPrice = item.unitPrices?.[item.unit] ?? item.price ?? "";
@@ -1425,12 +1523,20 @@ $("shop-enquiry-form").addEventListener("submit", async (event) => {
   setInvoiceDate();
   const data = new FormData(event.currentTarget);
   const name = String(data.get("name")).trim();
-  const contact = String(data.get("contact")).trim();
   if (!cart.length) {
     $("shop-form-status").textContent =
       "Add at least one product to your enquiry list first.";
     return;
   }
+  const phoneDigits = String(data.get("contact")).replace(/\D/g, "");
+  if (!/^\d{9}$/.test(phoneDigits)) {
+    invoicePhoneInput.setCustomValidity("Enter exactly 9 digits after +220.");
+    invoicePhoneInput.reportValidity();
+    $("shop-form-status").textContent = "Enter a 9-digit phone number after +220.";
+    return;
+  }
+  invoicePhoneInput.setCustomValidity("");
+  const contact = `+220 ${phoneDigits}`;
   if (!invoiceReadyToFinish) {
     invoiceReadyToFinish = true;
     invoiceSubmitButton.textContent = "Finish invoice";
